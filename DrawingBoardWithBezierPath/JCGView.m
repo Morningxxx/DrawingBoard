@@ -8,16 +8,14 @@
 
 #import "JCGView.h"
 
+
+
 @interface JCGView()
 
 /*point array or dic for drawing*/
 @property (nonatomic, strong) NSMutableArray<NSDictionary*>* pointAll;
 @property (nonatomic, strong) NSMutableArray* pointCur;
 @property (nonatomic, strong) NSMutableArray<NSDictionary*>* redoArr;
-
-/*controller*/
-@property (weak,nonatomic) UISegmentedControl* penEraserChose;
-@property (weak,nonatomic) UIButton* redoBtn;
 
 /*drawing property*/
 @property (strong,nonatomic) UIColor* strokeColor;
@@ -38,44 +36,8 @@
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if(self = [super initWithFrame:frame]){
-        /*creat Clear Button*/
-        UIButton* clearBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        clearBtn.frame = CGRectMake(0, 30, 60, 20);
-        [clearBtn setTitle:@"Clear" forState:UIControlStateNormal];
-        [clearBtn addTarget:self action:@selector(clearBoard) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:clearBtn];
         
-        /*creat Undo Button*/
-        UIButton* undoBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        undoBtn.frame = CGRectMake(60, 30, 50, 20);
-        [undoBtn setTitle:@"Undo" forState:UIControlStateNormal];
-        [undoBtn addTarget:self action:@selector(undo) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:undoBtn];
-        
-        /*creat Save Button*/
-        UIButton* saveBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        saveBtn.frame = CGRectMake(self.bounds.size.width-50, 30, 50, 20);
-        [saveBtn setTitle:@"Save" forState:UIControlStateNormal];
-        [saveBtn addTarget:self action:@selector(saveAsImage) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:saveBtn];
-        
-        /*creat Redo Button*/
-        UIButton* redoBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        redoBtn.frame = CGRectMake(self.bounds.size.width-50-50, 30, 50, 20);
-        [redoBtn setTitle:@"Redo" forState:UIControlStateNormal];
-        [redoBtn addTarget:self action:@selector(redo) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:redoBtn];
-        self.redoBtn = redoBtn;
-        self.redoBtn.enabled = self.redoArr.count;
 
-        
-        /*creat pen-or-eraser choser*/
-        UISegmentedControl* panErazerChose = [[UISegmentedControl alloc]initWithFrame:CGRectMake(self.bounds.size.width/2-50, 30, 100, 20)];
-        self.penEraserChose= panErazerChose;
-        [panErazerChose insertSegmentWithTitle:@"pen" atIndex:0 animated:NO];
-        [panErazerChose insertSegmentWithTitle:@"eraser" atIndex:1 animated:NO];
-        panErazerChose.selectedSegmentIndex = 0;
-        [self addSubview:panErazerChose];
         
         /*set defult drawing property*/
         self.strokeColor = [UIColor blackColor];
@@ -148,14 +110,14 @@
 
 }
 
+
+/*save image to album*/
 -(void)saveAsImage{
     UIGraphicsBeginImageContext(self.bounds.size);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     [self.layer renderInContext:ctx];
     UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
     UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-    
-    
     UIGraphicsEndImageContext();
 }
 
@@ -182,10 +144,10 @@
     if (self.pointCur.count>2) {
         NSDictionary* path = @{_penEraserChose.selectedSegmentIndex ? @"eraser":@"pen" : self.pointCur};
         [self.pointAll addObject:path];
+        self.redoArr = nil;
     }
     self.penEraserChose.userInteractionEnabled = YES;
     self.pointCur = nil;
-    self.redoArr = nil;
     self.redoBtn.enabled = self.redoArr.count;
 }
 

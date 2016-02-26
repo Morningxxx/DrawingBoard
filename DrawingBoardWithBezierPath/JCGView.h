@@ -8,6 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JCGView : UIView
+@protocol JCGViewDelegate <NSObject>
+
+@required
+-(void)undo;
+-(void)redo;
+-(void)saveAsImage;
+-(void)clearBoard;
+
+@end
+
+@interface JCGView : UIView<JCGViewDelegate>
+
+/*controller on parentView we should use*/
+@property (weak,nonatomic) UISegmentedControl* penEraserChose;
+@property (weak,nonatomic) UIButton* redoBtn;
 
 @end
