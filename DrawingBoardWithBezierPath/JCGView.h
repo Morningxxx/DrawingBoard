@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JCGToolbar.h"
 
 @protocol JCGViewDelegate <NSObject>
 
@@ -23,5 +24,6 @@
 /*controller on parentView we should use*/
 @property (weak,nonatomic) UISegmentedControl* penEraserChose;
 @property (weak,nonatomic) UIButton* redoBtn;
+@property (weak,nonatomic) JCGToolbar* toolBar;
 
 @end

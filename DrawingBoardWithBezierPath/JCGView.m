@@ -36,9 +36,6 @@
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if(self = [super initWithFrame:frame]){
-        
-
-        
         /*set defult drawing property*/
         self.strokeColor = [UIColor blackColor];
         self.penWidth = 3;
@@ -79,7 +76,6 @@
     [self.pointAll removeLastObject];
     [self setNeedsDisplay];
     self.redoBtn.enabled = self.redoArr.count;
-
 }
 
 /*redo last undo or clear*/
@@ -97,7 +93,6 @@
         }
     }
     self.redoBtn.enabled = self.redoArr.count;
-
 }
 
 /*clear board*/
@@ -107,7 +102,6 @@
     self.pointAll = nil;
     [self setNeedsDisplay];
     self.redoBtn.enabled = self.redoArr.count;
-
 }
 
 
@@ -132,15 +126,15 @@
     self.penEraserChose.userInteractionEnabled = NO;
     [self.pointCur addObject:[NSValue valueWithCGPoint:[[touches anyObject] locationInView:self]]];
 }
--(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
 
+-(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.pointCur addObject:[NSValue valueWithCGPoint:[[touches anyObject] locationInView:self]]];
     [self setNeedsDisplay];
 }
+
 -(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
     [self.pointCur addObject:[NSValue valueWithCGPoint:[[touches anyObject] locationInView:self]]];
-    
+    [self setNeedsDisplay];
     if (self.pointCur.count>2) {
         NSDictionary* path = @{_penEraserChose.selectedSegmentIndex ? @"eraser":@"pen" : self.pointCur};
         [self.pointAll addObject:path];
@@ -158,11 +152,8 @@
     if (_pointAll) {
         for (NSDictionary* pointDic in _pointAll) {
             
-            NSArray* pointArr = pointDic[@"pen"];
-            [self drawPanActionWithPointArray:pointArr];
-            
-            pointArr = pointDic[@"eraser"];
-            [self drawEraserActionWithPointArray:pointArr];
+            [self drawPanActionWithPointArray:pointDic[@"pen"]];
+            [self drawEraserActionWithPointArray:pointDic[@"eraser"]];
         }
     }
 

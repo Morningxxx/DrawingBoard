@@ -14,6 +14,7 @@
 		9439FCC91C7F2757001374FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9439FCC81C7F2757001374FA /* Assets.xcassets */; };
 		9439FCCC1C7F2757001374FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9439FCCA1C7F2757001374FA /* LaunchScreen.storyboard */; };
 		9439FCD51C7F277E001374FA /* JCGView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9439FCD41C7F277E001374FA /* JCGView.m */; };
+		94B16CC01C93A0210032AC13 /* JCGToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B16CBF1C93A0210032AC13 /* JCGToolbar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		9439FCCD1C7F2757001374FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9439FCD31C7F277E001374FA /* JCGView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCGView.h; sourceTree = "<group>"; };
 		9439FCD41C7F277E001374FA /* JCGView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCGView.m; sourceTree = "<group>"; };
+		94B16CBE1C93A0210032AC13 /* JCGToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCGToolbar.h; sourceTree = "<group>"; };
+		94B16CBF1C93A0210032AC13 /* JCGToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCGToolbar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +70,8 @@
 				9439FCC01C7F2757001374FA /* AppDelegate.m */,
 				9439FCC21C7F2757001374FA /* ViewController.h */,
 				9439FCC31C7F2757001374FA /* ViewController.m */,
+				94B16CBE1C93A0210032AC13 /* JCGToolbar.h */,
+				94B16CBF1C93A0210032AC13 /* JCGToolbar.m */,
 				9439FCC51C7F2757001374FA /* Main.storyboard */,
 				9439FCC81C7F2757001374FA /* Assets.xcassets */,
 				9439FCCA1C7F2757001374FA /* LaunchScreen.storyboard */,
@@ -159,6 +164,7 @@
 				9439FCC11C7F2757001374FA /* AppDelegate.m in Sources */,
 				9439FCBE1C7F2757001374FA /* main.m in Sources */,
 				9439FCD51C7F277E001374FA /* JCGView.m in Sources */,
+				94B16CC01C93A0210032AC13 /* JCGToolbar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +311,7 @@
 				9439FCD21C7F2757001374FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
