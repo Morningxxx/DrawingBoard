@@ -11,12 +11,13 @@
 #import "JCGToolbar.h"
 #import "JCGColorPicker.h"
 
-@interface ViewController ()
+@interface ViewController () 
 @property (nonatomic,weak) JCGView* drawView;
 @property (weak,nonatomic) UISegmentedControl* penEraserChose;
 @property (weak,nonatomic) UIButton* redoBtn;
 @property (weak,nonatomic) JCGToolbar* toolBar;
 @property (weak,nonatomic) JCGColorPicker* colorPicker;
+@property (weak,nonatomic) UIButton* colorBtn;
 
 @end
 
@@ -45,22 +46,28 @@
     /**create a tool-bar*/
     [self addToolBar];
     
+    /**create a color picker*/
     [self createColorPicker];
+    
+    /**create a curColor Button*/
+    [self createColorButton];
     
     /*give drawView the contrl it need*/
     self.drawView.penEraserChose = self.penEraserChose;
     self.drawView.redoBtn = self.redoBtn;
     self.drawView.toolBar = self.toolBar;
+    self.colorPicker.curColorBtn = self.colorBtn;
     
     [self.toolBar setSelectedItem:self.toolBar.items[0]];
     
 }
 
-
+/**create a color picker*/
 -(void)createColorPicker{
-    JCGColorPicker* colorPicker = [[JCGColorPicker alloc]initWithFrame:CGRectMake(self.view.frame.size.width, self.toolBar.frame.origin.y-30, 300, 20)];
+    JCGColorPicker* colorPicker = [[JCGColorPicker alloc]initWithFrame:CGRectMake(self.view.frame.size.width, self.toolBar.frame.origin.y-20, 300, 20)];
     self.colorPicker = colorPicker;
     colorPicker.drawBoard = self.drawView;
+    colorPicker.hidden = YES;
     [self.view addSubview:self.colorPicker];
 }
 
@@ -127,6 +134,26 @@
     [saveBtn setTitle:@"Save" forState:UIControlStateNormal];
     [saveBtn addTarget:self.drawView action:@selector(saveAsImage) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:saveBtn];
+}
+
+/**create color button*/
+-(void)createColorButton{
+    UIButton* colorBtn = [[UIButton alloc]init];
+    _colorBtn = colorBtn;
+    colorBtn.frame = CGRectMake(self.view.frame.size.width-30, self.toolBar.frame.origin.y-25, 30, 25);
+    colorBtn.backgroundColor = [UIColor blackColor];
+    [colorBtn addTarget:self action:@selector(changeCurColor) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:colorBtn];
+}
+
+
+-(void)changeCurColor{
+    [self.colorPicker setTransform:CGAffineTransformMakeTranslation(self.view.bounds.size.width, 0)];
+    self.colorPicker.hidden = NO;
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.colorPicker setTransform:CGAffineTransformIdentity];
+    }];
+    
 }
 
 @end

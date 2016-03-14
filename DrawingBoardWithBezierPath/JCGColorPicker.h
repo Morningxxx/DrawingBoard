@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "JCGView.h"
 
-@interface JCGColorPicker : UIView
+@interface JCGColorPicker : UIView 
 
 @property (weak, nonatomic) JCGView* drawBoard;
+@property (strong, nonatomic) UIColor* curColor;
+@property (weak, nonatomic) UIButton* curColorBtn;
 
 @end

@@ -9,8 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "JCGView.h"
 
+@protocol JCGColorButtonDelegate <NSObject>
+
+-(void)changeStrokColor:(UIButton*)sender;
+
+@end
+
 @interface JCGColorButton : UIButton
 
-@property (weak,nonatomic) JCGView* drawBoard;
+@property (weak, nonatomic) id<JCGColorButtonDelegate> delegate;
 
 @end

@@ -21,15 +21,15 @@
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        [self addTarget:self action:@selector(changeStrokColor:) forControlEvents:UIControlEventTouchUpInside];
+        [self addTarget:self.delegate action:@selector(changeStrokColor:) forControlEvents:UIControlEventTouchUpInside];
     
     }
     
     return self;
 }
 
--(void)changeStrokColor:(UIButton*)sender{
-    self.drawBoard.strokeColor = sender.backgroundColor;
-}
+//-(void)changeStrokColor:(UIButton*)sender{
+//    self.drawBoard.strokeColor = sender.backgroundColor;
+//}
 
 @end
