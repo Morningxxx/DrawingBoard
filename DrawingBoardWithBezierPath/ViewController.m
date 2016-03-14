@@ -9,12 +9,14 @@
 #import "ViewController.h"
 #import "JCGView.h"
 #import "JCGToolbar.h"
+#import "JCGColorPicker.h"
 
 @interface ViewController ()
 @property (nonatomic,weak) JCGView* drawView;
 @property (weak,nonatomic) UISegmentedControl* penEraserChose;
 @property (weak,nonatomic) UIButton* redoBtn;
 @property (weak,nonatomic) JCGToolbar* toolBar;
+@property (weak,nonatomic) JCGColorPicker* colorPicker;
 
 @end
 
@@ -43,6 +45,8 @@
     /**create a tool-bar*/
     [self addToolBar];
     
+    [self createColorPicker];
+    
     /*give drawView the contrl it need*/
     self.drawView.penEraserChose = self.penEraserChose;
     self.drawView.redoBtn = self.redoBtn;
@@ -50,6 +54,14 @@
     
     [self.toolBar setSelectedItem:self.toolBar.items[0]];
     
+}
+
+
+-(void)createColorPicker{
+    JCGColorPicker* colorPicker = [[JCGColorPicker alloc]initWithFrame:CGRectMake(self.view.frame.size.width, self.toolBar.frame.origin.y-30, 300, 20)];
+    self.colorPicker = colorPicker;
+    colorPicker.drawBoard = self.drawView;
+    [self.view addSubview:self.colorPicker];
 }
 
 /**creat a view for drawing*/

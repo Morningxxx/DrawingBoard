@@ -14,6 +14,8 @@
 		9439FCC91C7F2757001374FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9439FCC81C7F2757001374FA /* Assets.xcassets */; };
 		9439FCCC1C7F2757001374FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9439FCCA1C7F2757001374FA /* LaunchScreen.storyboard */; };
 		9439FCD51C7F277E001374FA /* JCGView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9439FCD41C7F277E001374FA /* JCGView.m */; };
+		9454A8F91C9691930017C685 /* JCGColorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9454A8F81C9691930017C685 /* JCGColorButton.m */; };
+		9454A8FC1C96935A0017C685 /* JCGColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 9454A8FB1C96935A0017C685 /* JCGColorPicker.m */; };
 		94B16CC01C93A0210032AC13 /* JCGToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B16CBF1C93A0210032AC13 /* JCGToolbar.m */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +32,10 @@
 		9439FCCD1C7F2757001374FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9439FCD31C7F277E001374FA /* JCGView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCGView.h; sourceTree = "<group>"; };
 		9439FCD41C7F277E001374FA /* JCGView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCGView.m; sourceTree = "<group>"; };
+		9454A8F71C9691930017C685 /* JCGColorButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCGColorButton.h; sourceTree = "<group>"; };
+		9454A8F81C9691930017C685 /* JCGColorButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCGColorButton.m; sourceTree = "<group>"; };
+		9454A8FA1C96935A0017C685 /* JCGColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCGColorPicker.h; sourceTree = "<group>"; };
+		9454A8FB1C96935A0017C685 /* JCGColorPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCGColorPicker.m; sourceTree = "<group>"; };
 		94B16CBE1C93A0210032AC13 /* JCGToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCGToolbar.h; sourceTree = "<group>"; };
 		94B16CBF1C93A0210032AC13 /* JCGToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCGToolbar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,8 +74,12 @@
 				9439FCD41C7F277E001374FA /* JCGView.m */,
 				9439FCBF1C7F2757001374FA /* AppDelegate.h */,
 				9439FCC01C7F2757001374FA /* AppDelegate.m */,
+				9454A8F71C9691930017C685 /* JCGColorButton.h */,
+				9454A8F81C9691930017C685 /* JCGColorButton.m */,
 				9439FCC21C7F2757001374FA /* ViewController.h */,
 				9439FCC31C7F2757001374FA /* ViewController.m */,
+				9454A8FA1C96935A0017C685 /* JCGColorPicker.h */,
+				9454A8FB1C96935A0017C685 /* JCGColorPicker.m */,
 				94B16CBE1C93A0210032AC13 /* JCGToolbar.h */,
 				94B16CBF1C93A0210032AC13 /* JCGToolbar.m */,
 				9439FCC51C7F2757001374FA /* Main.storyboard */,
@@ -162,7 +172,9 @@
 			files = (
 				9439FCC41C7F2757001374FA /* ViewController.m in Sources */,
 				9439FCC11C7F2757001374FA /* AppDelegate.m in Sources */,
+				9454A8F91C9691930017C685 /* JCGColorButton.m in Sources */,
 				9439FCBE1C7F2757001374FA /* main.m in Sources */,
+				9454A8FC1C96935A0017C685 /* JCGColorPicker.m in Sources */,
 				9439FCD51C7F277E001374FA /* JCGView.m in Sources */,
 				94B16CC01C93A0210032AC13 /* JCGToolbar.m in Sources */,
 			);

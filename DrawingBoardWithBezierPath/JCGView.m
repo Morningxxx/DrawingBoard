@@ -17,10 +17,7 @@
 @property (nonatomic, strong) NSMutableArray* pointCur;
 @property (nonatomic, strong) NSMutableArray<NSDictionary*>* redoArr;
 
-/*drawing property*/
-@property (strong,nonatomic) UIColor* strokeColor;
-@property (assign,nonatomic) CGFloat penWidth;
-@property (assign,nonatomic) CGFloat eraserWidth;
+
 
 @end
 
@@ -128,11 +125,7 @@
 }
 
 -(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-//    if (self.toolBar.selectedItem.tag == 1) {
-//        [self.pointCur addObject:[NSValue valueWithCGPoint:[[touches anyObject] locationInView:self]]];
-//    }else {
-//        self.pointCur[1] = [NSValue valueWithCGPoint:[[touches anyObject] locationInView:self]];
-//    }
+
     [self.pointCur addObject:[NSValue valueWithCGPoint:[[touches anyObject] locationInView:self]]];
     
     [self setNeedsDisplay];
@@ -142,11 +135,7 @@
 
 -(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     
-//    if (self.toolBar.selectedItem.tag == 1) {
-//        [self.pointCur addObject:[NSValue valueWithCGPoint:[[touches anyObject] locationInView:self]]];
-//    }else {
-//        self.pointCur[1] = [NSValue valueWithCGPoint:[[touches anyObject] locationInView:self]];
-//    }
+
     
     [self.pointCur addObject:[NSValue valueWithCGPoint:[[touches anyObject] locationInView:self]]];
 
@@ -154,21 +143,20 @@
     [self setNeedsDisplay];
     
     if (self.pointCur.count>2) {
-//        NSDictionary* path = @{_penEraserChose.selectedSegmentIndex ? @"eraser":@"pen" : self.pointCur};
         NSDictionary* path;
         if (!_penEraserChose.selectedSegmentIndex) {
             switch (self.toolBar.selectedItem.tag) {
                 case 1:
-                    path = @{@"pen" : self.pointCur};
+                    path = @{@"pen" : self.pointCur, @"color" : self.strokeColor};
                     break;
                 case 2:
-                    path = @{@"rect" : self.pointCur};
+                    path = @{@"rect" : self.pointCur, @"color" : self.strokeColor};
                     break;
                 case 3:
-                    path = @{@"oval" : self.pointCur};
+                    path = @{@"oval" : self.pointCur, @"color" : self.strokeColor};
                     break;
                 case 4:
-                    path = @{@"line" : self.pointCur};
+                    path = @{@"line" : self.pointCur, @"color" : self.strokeColor};
                     break;
                 default:
                     break;
@@ -176,6 +164,7 @@
         }else{
             path = @{@"eraser" : self.pointCur};
         }
+        
         [self.pointAll addObject:path];
         self.redoArr = nil;
     }
@@ -191,11 +180,11 @@
     if (_pointAll) {
         for (NSDictionary* pointDic in _pointAll) {
             
-            [self drawPanActionWithPointArray:pointDic[@"pen"]];
+            [self drawPanActionWithPointArray:pointDic[@"pen"] withColor:pointDic[@"color"]];
             [self drawEraserActionWithPointArray:pointDic[@"eraser"]];
-            [self drawRectActionWithPointArray:pointDic[@"rect"]];
-            [self drawOvalActionWithPointArray:pointDic[@"oval"]];
-            [self drawLineActionWithPointArray:pointDic[@"line"]];
+            [self drawRectActionWithPointArray:pointDic[@"rect"] withColor:pointDic[@"color"]];
+            [self drawOvalActionWithPointArray:pointDic[@"oval"] withColor:pointDic[@"color"]];
+            [self drawLineActionWithPointArray:pointDic[@"line"] withColor:pointDic[@"color"]];
 
             
         }
@@ -205,16 +194,16 @@
         if (!self.penEraserChose.selectedSegmentIndex) {
             switch (self.toolBar.selectedItem.tag) {
                 case 1:
-                    [self drawPanActionWithPointArray:_pointCur];
+                    [self drawPanActionWithPointArray:_pointCur withColor:self.strokeColor];
                     break;
                 case 2:
-                    [self drawRectActionWithPointArray:_pointCur];
+                    [self drawRectActionWithPointArray:_pointCur withColor:self.strokeColor];
                     break;
                 case 3:
-                    [self drawOvalActionWithPointArray:_pointCur];
+                    [self drawOvalActionWithPointArray:_pointCur withColor:self.strokeColor];
                     break;
                 case 4:
-                    [self drawLineActionWithPointArray:_pointCur];
+                    [self drawLineActionWithPointArray:_pointCur withColor:self.strokeColor];
                     break;
                 default:
                     break;
@@ -227,8 +216,8 @@
 }
 
 /**Pen*/
--(void)drawPanActionWithPointArray:(NSArray*)pointArr{
-    [self.strokeColor setStroke];
+-(void)drawPanActionWithPointArray:(NSArray*)pointArr withColor:(UIColor*)color{
+    [color setStroke];
     UIBezierPath* path = [[UIBezierPath alloc]init];
     [path moveToPoint:[pointArr.firstObject CGPointValue]];
     for (NSValue* point in pointArr) {
@@ -253,8 +242,8 @@
 }
 
 /**Rect*/
--(void)drawRectActionWithPointArray:(NSArray*)pointArr{
-    [self.strokeColor setStroke];
+-(void)drawRectActionWithPointArray:(NSArray*)pointArr withColor:(UIColor*)color{
+    [color setStroke];
     CGPoint origin = [pointArr.firstObject CGPointValue];
     CGPoint end = [pointArr.lastObject CGPointValue];
     CGRect rectan;
@@ -266,8 +255,8 @@
 }
 
 /**Oval*/
--(void)drawOvalActionWithPointArray:(NSArray*)pointArr{
-    [self.strokeColor setStroke];
+-(void)drawOvalActionWithPointArray:(NSArray*)pointArr withColor:(UIColor*)color{
+    [color setStroke];
     CGPoint origin = [pointArr.firstObject CGPointValue];
     CGPoint end = [pointArr.lastObject CGPointValue];
     CGRect rectan;
@@ -279,8 +268,8 @@
 }
 
 /**Line*/
--(void)drawLineActionWithPointArray:(NSArray*)pointArr{
-    [self.strokeColor setStroke];
+-(void)drawLineActionWithPointArray:(NSArray*)pointArr withColor:(UIColor*)color{
+    [color setStroke];
     CGPoint origin = [pointArr.firstObject CGPointValue];
     CGPoint end = [pointArr.lastObject CGPointValue];
     UIBezierPath* path = [[UIBezierPath alloc]init];

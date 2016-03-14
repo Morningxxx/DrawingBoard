@@ -26,4 +26,9 @@
 @property (weak,nonatomic) UIButton* redoBtn;
 @property (weak,nonatomic) JCGToolbar* toolBar;
 
+/*drawing property*/
+@property (strong,nonatomic) UIColor* strokeColor;
+@property (assign,nonatomic) CGFloat penWidth;
+@property (assign,nonatomic) CGFloat eraserWidth;
+
 @end
