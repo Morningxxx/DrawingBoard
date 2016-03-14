@@ -40,12 +40,15 @@
     /**create pen-or-eraser choser*/
     [self creatEraserChoser];
     
+    /**create a tool-bar*/
     [self addToolBar];
     
     /*give drawView the contrl it need*/
     self.drawView.penEraserChose = self.penEraserChose;
     self.drawView.redoBtn = self.redoBtn;
     self.drawView.toolBar = self.toolBar;
+    
+    [self.toolBar setSelectedItem:self.toolBar.items[0]];
     
 }
 
@@ -57,6 +60,7 @@
     self.drawView = drawingView;
 }
 
+/**create a tool-bar to choose drawing instriment*/
 -(void)addToolBar{
     JCGToolbar* toolBar = [[JCGToolbar alloc] init];
     [self.view addSubview:toolBar];

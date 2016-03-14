@@ -128,15 +128,54 @@
 }
 
 -(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+//    if (self.toolBar.selectedItem.tag == 1) {
+//        [self.pointCur addObject:[NSValue valueWithCGPoint:[[touches anyObject] locationInView:self]]];
+//    }else {
+//        self.pointCur[1] = [NSValue valueWithCGPoint:[[touches anyObject] locationInView:self]];
+//    }
     [self.pointCur addObject:[NSValue valueWithCGPoint:[[touches anyObject] locationInView:self]]];
+    
     [self setNeedsDisplay];
+    
+    
 }
 
 -(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+//    if (self.toolBar.selectedItem.tag == 1) {
+//        [self.pointCur addObject:[NSValue valueWithCGPoint:[[touches anyObject] locationInView:self]]];
+//    }else {
+//        self.pointCur[1] = [NSValue valueWithCGPoint:[[touches anyObject] locationInView:self]];
+//    }
+    
     [self.pointCur addObject:[NSValue valueWithCGPoint:[[touches anyObject] locationInView:self]]];
+
+    
     [self setNeedsDisplay];
+    
     if (self.pointCur.count>2) {
-        NSDictionary* path = @{_penEraserChose.selectedSegmentIndex ? @"eraser":@"pen" : self.pointCur};
+//        NSDictionary* path = @{_penEraserChose.selectedSegmentIndex ? @"eraser":@"pen" : self.pointCur};
+        NSDictionary* path;
+        if (!_penEraserChose.selectedSegmentIndex) {
+            switch (self.toolBar.selectedItem.tag) {
+                case 1:
+                    path = @{@"pen" : self.pointCur};
+                    break;
+                case 2:
+                    path = @{@"rect" : self.pointCur};
+                    break;
+                case 3:
+                    path = @{@"oval" : self.pointCur};
+                    break;
+                case 4:
+                    path = @{@"line" : self.pointCur};
+                    break;
+                default:
+                    break;
+            }
+        }else{
+            path = @{@"eraser" : self.pointCur};
+        }
         [self.pointAll addObject:path];
         self.redoArr = nil;
     }
@@ -154,12 +193,32 @@
             
             [self drawPanActionWithPointArray:pointDic[@"pen"]];
             [self drawEraserActionWithPointArray:pointDic[@"eraser"]];
+            [self drawRectActionWithPointArray:pointDic[@"rect"]];
+            [self drawOvalActionWithPointArray:pointDic[@"oval"]];
+            [self drawLineActionWithPointArray:pointDic[@"line"]];
+
+            
         }
     }
 
     if (_pointCur.count > 2) {
         if (!self.penEraserChose.selectedSegmentIndex) {
-            [self drawPanActionWithPointArray:_pointCur];
+            switch (self.toolBar.selectedItem.tag) {
+                case 1:
+                    [self drawPanActionWithPointArray:_pointCur];
+                    break;
+                case 2:
+                    [self drawRectActionWithPointArray:_pointCur];
+                    break;
+                case 3:
+                    [self drawOvalActionWithPointArray:_pointCur];
+                    break;
+                case 4:
+                    [self drawLineActionWithPointArray:_pointCur];
+                    break;
+                default:
+                    break;
+            }
         }
         else{
             [self drawEraserActionWithPointArray:_pointCur];
@@ -167,6 +226,7 @@
     }
 }
 
+/**Pen*/
 -(void)drawPanActionWithPointArray:(NSArray*)pointArr{
     [self.strokeColor setStroke];
     UIBezierPath* path = [[UIBezierPath alloc]init];
@@ -179,6 +239,7 @@
     [path stroke];
 }
 
+/**Eraser*/
 -(void)drawEraserActionWithPointArray:(NSArray*)pointArr{
     [self.backgroundColor setStroke];
     UIBezierPath* path = [[UIBezierPath alloc]init];
@@ -188,6 +249,44 @@
         [path addLineToPoint:p];
     }
     [path setLineWidth:self.eraserWidth];
+    [path stroke];
+}
+
+/**Rect*/
+-(void)drawRectActionWithPointArray:(NSArray*)pointArr{
+    [self.strokeColor setStroke];
+    CGPoint origin = [pointArr.firstObject CGPointValue];
+    CGPoint end = [pointArr.lastObject CGPointValue];
+    CGRect rectan;
+    rectan.origin = origin;
+    rectan.size = CGSizeMake(end.x-origin.x, end.y - origin.y);
+    UIBezierPath* path = [UIBezierPath bezierPathWithRect:rectan];
+    [path setLineWidth:self.penWidth];
+    [path stroke];
+}
+
+/**Oval*/
+-(void)drawOvalActionWithPointArray:(NSArray*)pointArr{
+    [self.strokeColor setStroke];
+    CGPoint origin = [pointArr.firstObject CGPointValue];
+    CGPoint end = [pointArr.lastObject CGPointValue];
+    CGRect rectan;
+    rectan.origin = origin;
+    rectan.size = CGSizeMake(end.x-origin.x, end.y - origin.y);
+    UIBezierPath* path = [UIBezierPath bezierPathWithOvalInRect:rectan];
+    [path setLineWidth:self.penWidth];
+    [path stroke];
+}
+
+/**Line*/
+-(void)drawLineActionWithPointArray:(NSArray*)pointArr{
+    [self.strokeColor setStroke];
+    CGPoint origin = [pointArr.firstObject CGPointValue];
+    CGPoint end = [pointArr.lastObject CGPointValue];
+    UIBezierPath* path = [[UIBezierPath alloc]init];
+    [path moveToPoint:origin];
+    [path addLineToPoint:end];
+    [path setLineWidth:self.penWidth];
     [path stroke];
 }
 
